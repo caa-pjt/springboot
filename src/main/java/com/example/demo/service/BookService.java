@@ -27,4 +27,18 @@ public class BookService {
     public List<Book> getAll() {
         return bookRepository.findAll();
     }
+
+    public Boolean deleteBook(Long id) {
+        Book book = bookRepository.findById(id).orElse(null);
+
+        if (book != null){
+            this.bookRepository.deleteById(id);
+
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
 }

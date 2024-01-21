@@ -35,6 +35,13 @@ public class BookController {
         }
     }
 
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    @DeleteMapping("{id}")
+    public Boolean destroyOne(@PathVariable("id") Long id) {
+        // System.out.println("@CAA : " + id);
+        return this.bookService.deleteBook(id);
+    }
+
     @GetMapping(value = "", produces = "application/json")
     public List<Book> getAll() {
         return bookService.getAll();
