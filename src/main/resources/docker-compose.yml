@@ -1,0 +1,27 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:14-alpine
+    ports:
+      - 5432:5432
+    volumes:
+      - ~/apps/postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_USER=springboot
+      - POSTGRES_DB=springboot
+    command: ["postgres", "-c", "log_statement=all"]
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8081:8080
+    depends_on:
+      - postgres
+    environment:
+      - ADMINER_DEFAULT_SERVER=postgres
+      - ADMINER_DEFAULT_USERNAME=springboot
+      - ADMINER_DEFAULT_PASSWORD=1234
+      - ADMINER_DEFAULT_DATABASE=springboot
