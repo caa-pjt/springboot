@@ -1,5 +1,6 @@
 package com.example.demo.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -13,7 +14,8 @@ public class Book {
 
     private String title;
 
-    private String author;
+
+    //private String author;
 
     public Long getId() {
         return id;
@@ -30,7 +32,7 @@ public class Book {
     public void setTitle(String title) {
         this.title = title;
     }
-
+/*
     public String getAuthor() {
         return author;
     }
@@ -38,4 +40,8 @@ public class Book {
     public void setAuthor(String author) {
         this.author = author;
     }
+
+ */
+
+
 }
