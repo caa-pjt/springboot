@@ -22,7 +22,13 @@ public class AuthorService {
     }
 
     public Author createAuthor(Author author) {
-        return this.authorRepository.save(author);
+        Author searchAuthor = authorRepository.getAuthorByFirstNameAndLastName(author.getFirstName(), author.getLastName());
+
+        if (searchAuthor == null) {
+            return this.authorRepository.save(author);
+        } else {
+            return searchAuthor;
+        }
     }
 
     public Optional<Author> getOneAuthor(Long id) {

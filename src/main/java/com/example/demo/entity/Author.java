@@ -1,6 +1,5 @@
 package com.example.demo.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -8,31 +7,27 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
+@Table(name = "author")
 public class Author {
 
-    // Liaison de l'auteur à la table book
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
-    @JsonManagedReference
-    public List<Book> books = new ArrayList<>();
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "author_id")
     private Long id;
     private String firstName;
     private String lastName;
+
+    @Temporal(TemporalType.DATE)
     private Date birthayDate;
 
-    // Initialisez la liste dans le constructeur
-    public Author() {
-        this.books = new ArrayList<>();
-    }
-
-    public List<Book> getBooks() {
-        return books;
-    }
-
-    public void setBooks(List<Book> books) {
-        this.books = books;
-    }
+    // Liaison de l'auteur à la table book
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.EAGER
+    )
+    @JoinColumn(name = "book_id")
+    List<Book> books = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -64,5 +59,13 @@ public class Author {
 
     public void setBirthayDate(Date birthayDate) {
         this.birthayDate = birthayDate;
+    }
+
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
     }
 }
